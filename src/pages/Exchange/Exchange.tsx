@@ -18,6 +18,7 @@ const currencies: NameSymbol[] = [
 ];
 
 export const Exchange = function () {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isInput, setIsInput] = useState<boolean>(false);
   const [amount, setAmount] = useState<number>(1);
   const [selectedCurrency, setSelectedCurrency] = useState<string>('');
@@ -40,6 +41,7 @@ export const Exchange = function () {
 
   const onSubmit = async () => {
     setIsInput(false);
+    setIsLoading(true);
 
     const _convertResult: ConvertResult = await convert('USD', selectedCurrency, amount);
     if (_convertResult) {
@@ -47,6 +49,7 @@ export const Exchange = function () {
       _convertResults.push(_convertResult);
   
       setConvertResults(_convertResults);  
+      setIsLoading(false);
     }
   };
 
@@ -62,7 +65,6 @@ export const Exchange = function () {
         </div>
         <div className='card-body'>
           <div className='convert-result-list'>
-            {(!convertResults || convertResults.length === 0) && <span className='warning'>No result</span>}
             {convertResults && convertResults.map((result: ConvertResult, i) => (
               <div key={`result-${objectHash(result.to)}`} className='card'>
                 <div className='row'>
@@ -80,6 +82,8 @@ export const Exchange = function () {
                 </div>
               </div>
             ))}
+            {(!convertResults || convertResults.length === 0) && !isLoading && <span className='warning'>No result</span>}
+            {isLoading && <div className='loader'><i className="fa fa-spinner rotate" aria-hidden="true"></i></div>}
           </div>
           <div className='new-currency'>
             <button className={`btn btn-primary${isInput ? ' hidden' : ''}`} onClick={onAdd}>( + ) Add More Currencies</button>

@@ -35,6 +35,11 @@
   }
 
   .convert-result-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+
     .card {
       margin-top: 20px;
       padding: 10px;
@@ -47,14 +52,5 @@
 
   .new-currency {
     margin-top: 20px;
-  }
-
-  .fillsize {
-    width: 100%;
-    height: 100%;
-  }
-
-  .warning {
-    color: orange;
   }
 }
