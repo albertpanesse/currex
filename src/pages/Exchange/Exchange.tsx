@@ -54,8 +54,8 @@ export const Exchange = function () {
         </div>
         <div className='card-body'>
           <div className='convert-result-list'>
-            {convertResults && convertResults.map((result: ConvertResult, i) => (
-              <div key={`result-${objectHash(result.to)}`} className='card'>
+            {convertResults && convertResults.map((result: ConvertResult) => (
+              <div key={`result-${objectHash(result)}`} className='card'>
                 <div className='row'>
                   <div className='col-11'>
                     <div className='amount'>
